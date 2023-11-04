@@ -2,8 +2,8 @@ const db = require('../db')
 
 class AdressController {
   async createAdress(req, res) {
-    const { adress, title } = req.body;
-    const newAdress = await db.query( `INSERT INTO adress (adress, title) values ($1, $2) RETURNING *`, [adress, title]);
+    const { adress } = req.body;
+    const newAdress = await db.query( `INSERT INTO adress (adress) values ($1) RETURNING *`, [adress]);
     res.json(newAdress.rows[0]);
   }
 
@@ -20,7 +20,7 @@ class AdressController {
 
   async updateAdress(req, res) {
     const { id, adress, title } = req.body;
-    const updatedAdress = await db.query( `UPDATE adress SET adress = $1, title = $2 WHERE id = $3 RETURNING *`, [adress, title, id]);
+    const updatedAdress = await db.query( `UPDATE adress SET adress = $1 WHERE id = $2 RETURNING *`, [adress, id]);
     res.json(updatedAdress.rows[0]);
   }
 
